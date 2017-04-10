@@ -46,12 +46,12 @@ class Plot {
   }
 
   public void draw_points() {
-
     for (PVector point : values) {
       pushMatrix();
-      translate((point.x/(max.x-min.x))*width, (point.y/(max.y-min.y))*height);
-      println("x:" + (point.x/(max.x-min.x))*width + " y:" + (point.y/(max.y-min.y))*height);
-      fill(000);
+
+      fill(color(255, 204, 0));
+      stroke(0);
+      translate(map(point.x, min.x, max.x, 0, width),map(point.y, min.y, max.y, height, 0));
       ellipse(0, 0, 2, 2);
       popMatrix();
     }
@@ -75,6 +75,10 @@ class Plot {
         min.y = p.y;
       }
     }
+    min.x = floor(min.x);
+    min.y = floor(min.y);
+    max.x = ceil(max.x);
+    max.y = ceil(max.y);
     print(min);
     print(max);
   }
