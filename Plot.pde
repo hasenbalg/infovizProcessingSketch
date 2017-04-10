@@ -28,9 +28,12 @@ class Plot {
     stroke(000);
     text(chosen_fields[1], margin, margin); 
     line(0, height, 0, 0);
+    draw_Y_scale();
+    
     translate(0, height-1);
     text(chosen_fields[0], width-margin, - margin); 
     line(0, 0, width, 0);
+    draw_X_scale();
     popMatrix();
   }
 
@@ -48,10 +51,9 @@ class Plot {
   public void draw_points() {
     for (PVector point : values) {
       pushMatrix();
-
       fill(color(255, 204, 0));
       stroke(0);
-      translate(map(point.x, min.x, max.x, 0, width),map(point.y, min.y, max.y, height, 0));
+      translate(map(point.x, min.x, max.x, 0, width), map(point.y, min.y, max.y, height, 0));
       ellipse(0, 0, 2, 2);
       popMatrix();
     }
@@ -81,6 +83,49 @@ class Plot {
     max.y = ceil(max.y);
     print(min);
     print(max);
+  }
+
+  private void draw_X_scale() {
+    for (float i = min.x; i <= max.x; i += .1) {
+      i = round( i * 100.0f ) / 100.0f;// misterioeses nachrunden      
+      if(i - (int)i == 0){
+        line(
+        map(i, min.x, max.x, 0, width), 0, 
+        map(i, min.x, max.x, 0, width), -margin * 2
+        );
+       text(String.format("%.1f", i), map(i, min.x, max.x, 0, width), -margin * 2);
+      }else{
+        line(
+          map(i, min.x, max.x, 0, width), 0, 
+          map(i, min.x, max.x, 0, width), -margin
+          );
+      }
+    }
+  }
+
+  public void draw_Y_scale() {
+    for (float i = min.y; i < max.y; i += .1) {
+      i = round( i * 100.0f ) / 100.0f;// misterioeses nachrunden      
+
+      if(i - (int)i == 0){
+         line(
+        margin * 2, 
+        map(i, min.y, max.y, height, 0), 
+        0, 
+        map(i, min.y, max.y, height, 0)
+        );
+        text(String.format("%.1f", i), margin * 2, map(i, min.y, max.y, height, 0));
+      }else{
+       line(
+        margin, 
+        map(i, min.y, max.y, height, 0), 
+        -margin, 
+        map(i, min.y, max.y, height, 0)
+        );
+      }
+      
+     
+    }
   }
 
 

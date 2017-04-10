@@ -1,7 +1,7 @@
 Plot plot;
 
 void setup(){
-  size(200,200,P2D);
+  size(400, 400);  // size always goes first!
   surface.setResizable(true);
   plot = new Plot("iris.csv");
 }
